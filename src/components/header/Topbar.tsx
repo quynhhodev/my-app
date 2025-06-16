@@ -1,0 +1,53 @@
+import GooglePayButton from '@google-pay/button-react'
+export default function Topbar(){
+    return(
+        <>
+        <GooglePayButton
+  environment="TEST"
+  
+  paymentRequest={{
+    apiVersion: 2,
+    apiVersionMinor: 0,
+    allowedPaymentMethods: [
+      {
+        type: 'CARD',
+        parameters: {
+          allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+          allowedCardNetworks: ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD", "VISA"],
+        },
+        tokenizationSpecification: {
+          type: 'PAYMENT_GATEWAY',
+          parameters: {
+            gateway: 'authorizenet',
+            gatewayMerchantId: '929050',
+          },
+          
+        },
+      },
+    ],
+    merchantInfo: {
+      merchantId: '',
+      merchantName: '',
+    },
+    transactionInfo: {
+      totalPriceStatus: 'FINAL',
+      totalPriceLabel: 'Total',
+      totalPrice: '100.00',
+      currencyCode: 'USD',
+      countryCode: 'US',
+    },
+  }}
+  onLoadPaymentData={paymentRequest => {
+    console.log('load payment data', paymentRequest);
+    var enc = window.btoa(paymentRequest.paymentMethodData.tokenizationData.token);
+    // var enc = window.btoa('5C1sK2wiRFBFxYwWSDDpOt12RtjaEB9AQiS54IMmMM/FB2SW+JyEl+QCNc3uzdsvPzg+DOSgevIKLJi3FgfbRyXV/vftZqEy+ypTTiYM6GH/7aCQYq8o3Yj6Ffxt7jXQSY7LDq3i5/gdPi31ge6Tzn6SPodKUksPvj6En3hXyeTIOfDMaXJ+Kb25bOormgGLFdzHaSlhbgh7HNWf2B80ETGsMc8L5KxOwkWI/Q4KcYA19lD0HF7zPk+umjwj+gnwhgsHyK1DOYXnr6e5RM6mu31UdvOIBt0+3a2m7+uVX24o3AvDDDoB4u1zf88Ho5E2Akmo3ABbJ7C/pjgBDdiq3v7Ri9UG/BfMRe3P/Lt0MfE8Nowwl5PdyKx/VeTihUcbASogCCIKZ85gjcEFHELXjOtQKSHXXgBIP8BcVemXrg==","signature":"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","header":{"publicKeyHash":"UvaW6pBRETJuP+WlJbPEiMHQQFiMa/gnh+LCvIt2MWE=","ephemeralPublicKey":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFj3cVHmhTeMQfdTKktzW8LAnKh/lIfus0ClYe75evIchGlXXVb7fHdTbcuUFAvXF+/dUW2tWyHysu1R1oobMTA==","transactionId":"f6981b875f7861e5a51ed410911ee81246611fff8fd772b068b087fc7ea090d3"},"version":"EC_v1');
+    console.log(enc);
+    
+  }}
+
+  
+/>
+        </>
+    )
+}
+
