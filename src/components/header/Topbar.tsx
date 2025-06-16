@@ -27,7 +27,7 @@ export default function Topbar(){
     ],
     merchantInfo: {
       merchantId: 'BCR2DN7TRCW4XK2T',
-      merchantName: 'abc',
+      merchantName: 'business',
     },
     transactionInfo: {
       totalPriceStatus: 'FINAL',
