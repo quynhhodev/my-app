@@ -3,7 +3,7 @@ export default function Topbar(){
     return(
         <>
         <GooglePayButton
-  environment="TEST"
+  environment="PRODUCTION"
   
   paymentRequest={{
     apiVersion: 2,
